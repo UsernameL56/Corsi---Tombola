@@ -27,27 +27,29 @@ namespace Corsi___Tombola
                 for (int z = 0; z < nc; z++)
                 {
                     //in base all'indice, la matrice verrà caricata con il rispettivo valore
-                    tabellone[i,z] = caricamento;
+                    tabellone[i, z] = caricamento;
                     caricamento++;
                     //Console.WriteLine(tabellone[i, z]);
                 }
             }
             //ciclo di estrazione dei numeri
-            
 
-            while (ControlloTabellone(tabellone)==true)
+            //ciclo che richiama la funzione di controllo
+            while (ControlloTabellone(tabellone) == true)
             {
-                var tuple = EstrazioneNumero(tabellone);
-                if (tuple.Item3 != 0)
+                //richiamo della variabile estrazione
+                int NumeroEstratto = EstrazioneNumero(tabellone);
+                //condizione per verificare se il numero che viene estratto è già estratto oppure no
+                if (NumeroEstratto != 0)
                 {
-                    Console.WriteLine(tuple.Item3);
+                    Console.WriteLine("Il numero estratto è: " + NumeroEstratto);
                 }
             }
         }
 
 
         //funzione per estrarre un numero
-        static Tuple<int, int, int> EstrazioneNumero(int[,] x )
+        static int EstrazioneNumero(int[,] x)
         {
             //dichiarazione Random
             Random r = new Random();
@@ -59,9 +61,10 @@ namespace Corsi___Tombola
             int estrazione = x[riga, colonna];
             //azzeramento del valore ottenuto per non farlo ripetere successivamente
             x[riga, colonna] = 0;
-            return Tuple.Create(riga, colonna, estrazione);
+            return estrazione;
         }
 
+        //funzione per controllare i numeri che vengono estratti
         static bool ControlloTabellone(int[,] x)
         {
             //ciclo per vedere se ci sono ancora numeri estraibili nel tabellone
@@ -80,5 +83,5 @@ namespace Corsi___Tombola
             return false;
         }
 
-    }   
+    }
 }
