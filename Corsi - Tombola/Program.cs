@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
@@ -21,16 +22,21 @@ namespace Corsi___Tombola
             int caricamento = 1;
             //dichiarazione variabili per la stampa del tabellone nella posizione desiderata
             int orizzontale = 10, verticale = 3;
-            //dichiarazione 2 matrici
+            //dichiarazione matrici
             int nr = 9, nc = 10;
             int[,] tabellone = new int[nr, nc];
             int[,] CopiaTabellone = new int[nr, nc];
+            int[,] CopiaTabellone2 = new int[nr, nc];
+            int[,] Cartella1 = new int[3, 9];
+
+
 
             //stampa del titolo per il tabellone + colori per decorazione
             Console.SetCursorPosition(16, 2);
-            Console.BackgroundColor=ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("   TABELLONE   ");
-            Console.BackgroundColor=ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Black;
+
             //ciclo per caricare tutti i 90 numeri nella matrice
             for (int i = 0; i < nr; i++)
             {
@@ -40,13 +46,14 @@ namespace Corsi___Tombola
                     tabellone[i, z] = caricamento;
                     //caricamento di una seconda matrice con gli stessi valori, per confrontarli in seguito in un ciclo, dato che quelli del tabellone si azzerano nella funzione
                     CopiaTabellone[i, z] = caricamento;
+                    CopiaTabellone2[i, z] = caricamento;
                     caricamento++;
                     //posizionamento del tabellone in ordine
                     Console.SetCursorPosition(orizzontale, verticale);
                     //controllo per il numero 10, dato che è l'unico numero a due cifre nella prima riga, per metterlo in riga con le altre decine
                     if (tabellone[i, z] == 10)
                     {
-                        Console.SetCursorPosition((orizzontale)-1, verticale);
+                        Console.SetCursorPosition((orizzontale) - 1, verticale);
                     }
                     orizzontale = orizzontale + 3;
                     //stampa del tabellone
@@ -58,13 +65,25 @@ namespace Corsi___Tombola
 
             }
 
+            //matrice indice cartella
+            for (int i = 0; i < 3; i++)
+            {
+                for (int z = 0; z < 9; z++)
+                {
+                    Cartella1[i, z] = 0;
+                }
+            }
+            //CalcoloIndiceCartella(CopiaTabellone2, Cartella1);
+
+
+
             //ciclo che richiama la funzione di controllo
             while (ControlloTabellone(tabellone) == true)
             {
                 //richiamo della variabile estrazione attra
                 int NumeroEstratto = EstrazioneNumero(tabellone);
                 //ripristino delle variabili di posizionamento del tabellone
-                verticale = 3;  orizzontale = 10;
+                verticale = 3; orizzontale = 10;
                 //condizione per verificare se il numero che viene estratto è già stato estratto oppure no
                 if (NumeroEstratto != 0)
                 {
@@ -83,7 +102,7 @@ namespace Corsi___Tombola
                                 //controllo per il numero 10, dato che è l'unico numero a due cifre nella prima riga, per metterlo in riga con le altre decine
                                 if (CopiaTabellone[i, z] == 10)
                                 {
-                                    Console.SetCursorPosition((orizzontale)- 1, verticale);
+                                    Console.SetCursorPosition((orizzontale) - 1, verticale);
                                 }
                                 //evidenzazione del numero estratto e scrittura sul tabellone
                                 Console.BackgroundColor = ConsoleColor.Green;
@@ -110,9 +129,9 @@ namespace Corsi___Tombola
                     }
                 }
             }
-            
+
         }
-                                                            //FUNZIONI
+        //FUNZIONI
 
         //funzione per estrarre un numero
         static int EstrazioneNumero(int[,] x)
@@ -148,5 +167,47 @@ namespace Corsi___Tombola
             //return se tutti i numeri sono stati estratti in modo da terminare l'estrazione dei numeri 
             return false;
         }
+
+        /*
+        static void CalcoloIndiceCartella(int[,] tab, int[,]cartella)
+        {
+            Random r = new Random();
+            //assegnamento di un valore randomico alla riga
+            int riga = r.Next(0, 9);
+            //assegnamento di un valore randomico alla colonna
+            int colonna = r.Next(0, 10);
+            int estr = tab[riga, colonna];
+            int IndiceCalcolato = estr;
+            IndiceCalcolato = (IndiceCalcolato / 10);
+            if (estr == 90)
+            {
+                IndiceCalcolato = IndiceCalcolato - 1;
+            }
+
+            if (cartella[0, IndiceCalcolato] == 0)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int z = 0; z < 10; z++)
+                    {
+                        //condizione per verificare se ci sono numeri diversi da 0 nel tabellone
+                        if (tab[i, z] != 0 || cartella[0, IndiceCalcolato] != 0)
+                        {
+                            tab[i, z] = 0;
+                            bool check = true;
+                        }
+                    }
+                }
+                if (true)
+                {
+                    cartella[0, IndiceCalcolato] = estr;
+                    Console.WriteLine(IndiceCalcolato + " " + cartella[0, IndiceCalcolato]);
+                }
+                
+            }
+        */
+
     }
 }
+
+
