@@ -73,6 +73,7 @@ namespace Corsi___Tombola
                     Cartella1[i, z] = 0;
                 }
             }
+
             //CalcoloIndiceCartella(CopiaTabellone2, Cartella1);
 
 
@@ -176,14 +177,17 @@ namespace Corsi___Tombola
             int riga = r.Next(0, 9);
             //assegnamento di un valore randomico alla colonna
             int colonna = r.Next(0, 10);
+            //estrazione numero casuale dalla copia della tabella
             int estr = tab[riga, colonna];
+            //copiatura del numero estratto per poi ricavare l'indice per posizionare il numero nella cartella
             int IndiceCalcolato = estr;
             IndiceCalcolato = (IndiceCalcolato / 10);
+            //condizione in caso il numero sia 90 perchè anche questo va nell'ottava posizione della cartella
             if (estr == 90)
             {
                 IndiceCalcolato = IndiceCalcolato - 1;
             }
-
+            //condizione per verificare se in quella posizione non c'è già un valore
             if (cartella[0, IndiceCalcolato] == 0)
             {
                 for (int i = 0; i < 9; i++)
@@ -193,11 +197,13 @@ namespace Corsi___Tombola
                         //condizione per verificare se ci sono numeri diversi da 0 nel tabellone
                         if (tab[i, z] != 0 || cartella[0, IndiceCalcolato] != 0)
                         {
+                            //azzeramento del valore estratto
                             tab[i, z] = 0;
                             bool check = true;
                         }
                     }
                 }
+                //se viene estratto un valore corretto allora scrivere il valore nella cartella
                 if (true)
                 {
                     cartella[0, IndiceCalcolato] = estr;
