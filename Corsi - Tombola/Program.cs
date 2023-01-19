@@ -16,7 +16,7 @@ namespace Corsi___Tombola
 {
     internal class Program
     {
-        static void Main(string[] args)             //MAIN  
+        static void Main(string[] args)
         {
             //dichiarazione variabile per caricare il tabellone(matrice)
             int caricamento = 1;
@@ -28,6 +28,8 @@ namespace Corsi___Tombola
             int[,] CopiaTabellone = new int[nr, nc];
             int[,] CopiaTabellone2 = new int[nr, nc];
             int[,] Cartella1 = new int[3, 9];
+            int[,] Cartella2 = new int[3, 9];
+            int contatore = 0;
 
 
 
@@ -35,6 +37,18 @@ namespace Corsi___Tombola
             Console.SetCursorPosition(16, 2);
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("   TABELLONE   ");
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            //stampa del titolo per la prima cartella + colori per decorazione
+            Console.SetCursorPosition(55, 2);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("   CARTELLA 1   ");
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            //stampa del titolo per la seconda cartella + colori per decorazione
+            Console.SetCursorPosition(55, 8);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("   CARTELLA 2   ");
             Console.BackgroundColor = ConsoleColor.Black;
 
             //ciclo per caricare tutti i 90 numeri nella matrice
@@ -65,17 +79,106 @@ namespace Corsi___Tombola
 
             }
 
-            //matrice indice cartella
+/*
+            //caricamento di 0 per le due cartelle
             for (int i = 0; i < 3; i++)
             {
                 for (int z = 0; z < 9; z++)
                 {
                     Cartella1[i, z] = 0;
+                    Cartella2[i, z] = 0;
                 }
             }
 
-            //CalcoloIndiceCartella(CopiaTabellone2, Cartella1);
+            //stampa della prima cartella
+            while (contatore<15)
+            {
+                //richiamo alla funzione di estrazione per la cartella
+                var tuple = EstrazioneCartella(CopiaTabellone2);
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è minore di 5 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1!=0 && Cartella1[0, tuple.Item2] == 0 && contatore<5)
+                {
+                    Cartella1[0, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è compreso tra 5 e 9 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1 != 0 && Cartella1[1, tuple.Item2] == 0 && contatore>4 && contatore < 10)
+                {
+                    Cartella1[1, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è maggiore di 9 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1 != 0 && Cartella1[2, tuple.Item2] == 0 && contatore > 9)
+                {
+                    Cartella1[2, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+            }
 
+            //resettamento del contatore e modifica delle posizioni
+            contatore = 0; orizzontale = 50; verticale = 3;
+            //ciclo di stampa
+            for (int i = 0; i < 3; i++)
+            {
+                for (int z = 0; z < 9; z++)
+                {
+                    //posizionamento e stampa della cartella
+                    Console.SetCursorPosition(orizzontale, verticale);
+                    Console.WriteLine(Cartella1[i, z]);
+                    orizzontale = orizzontale + 3;
+                }
+                //ritorno a sinistra per il cambio di riga
+                orizzontale = 50;
+                verticale++;
+            }
+
+            //stampa della seconda cartella
+            while (contatore < 15)
+            {
+                //richiamo alla funzione di estrazione per la cartella
+                var tuple = EstrazioneCartella(CopiaTabellone2);
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è minore di 5 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1 != 0 && Cartella2[0, tuple.Item2] == 0 && contatore < 5)
+                {
+                    Cartella2[0, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è compreso tra 5 e 9 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1 != 0 && Cartella2[1, tuple.Item2] == 0 && contatore > 4 && contatore < 10)
+                {
+                    Cartella2[1, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+                //se il valore estratto è diverso da 0, la posizione nella cartella non è già stata occupata, e il contatore è maggiore di 9 allora inserisci il valore estratto nella cartella
+                if (tuple.Item1 != 0 && Cartella2[2, tuple.Item2] == 0 && contatore > 9)
+                {
+                    Cartella2[2, tuple.Item2] = tuple.Item1;
+                    //incremento del contatore
+                    contatore++;
+                }
+            }
+
+            //resettamento del contatore e modifica delle posizion
+            orizzontale = 50; verticale = 9;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int z = 0; z < 9; z++)
+                {
+                    //posizionamento e stampa della cartella
+                    Console.SetCursorPosition(orizzontale, verticale);
+                    Console.WriteLine(Cartella2[i, z]);
+                    orizzontale = orizzontale + 3;
+                }
+                //ritorno a sinistra per il cambio di riga
+                orizzontale = 50;
+                verticale++;
+            }
+*/
 
 
             //ciclo che richiama la funzione di controllo
@@ -169,8 +272,7 @@ namespace Corsi___Tombola
             return false;
         }
 
-        /*
-        static void CalcoloIndiceCartella(int[,] tab, int[,]cartella)
+        static Tuple<int, int> EstrazioneCartella(int[,] tab)
         {
             Random r = new Random();
             //assegnamento di un valore randomico alla riga
@@ -179,6 +281,8 @@ namespace Corsi___Tombola
             int colonna = r.Next(0, 10);
             //estrazione numero casuale dalla copia della tabella
             int estr = tab[riga, colonna];
+            //azzeramento del valore ottenuto per non farlo ripetere successivamente
+            tab[riga, colonna] = 0;
             //copiatura del numero estratto per poi ricavare l'indice per posizionare il numero nella cartella
             int IndiceCalcolato = estr;
             IndiceCalcolato = (IndiceCalcolato / 10);
@@ -187,32 +291,9 @@ namespace Corsi___Tombola
             {
                 IndiceCalcolato = IndiceCalcolato - 1;
             }
-            //condizione per verificare se in quella posizione non c'è già un valore
-            if (cartella[0, IndiceCalcolato] == 0)
-            {
-                for (int i = 0; i < 9; i++)
-                {
-                    for (int z = 0; z < 10; z++)
-                    {
-                        //condizione per verificare se ci sono numeri diversi da 0 nel tabellone
-                        if (tab[i, z] != 0 || cartella[0, IndiceCalcolato] != 0)
-                        {
-                            //azzeramento del valore estratto
-                            tab[i, z] = 0;
-                            bool check = true;
-                        }
-                    }
-                }
-                //se viene estratto un valore corretto allora scrivere il valore nella cartella
-                if (true)
-                {
-                    cartella[0, IndiceCalcolato] = estr;
-                    Console.WriteLine(IndiceCalcolato + " " + cartella[0, IndiceCalcolato]);
-                }
-                
-            }
-        */
-
+            //utilizzo di tuple per più valori in return
+            return Tuple.Create(estr, IndiceCalcolato);
+        }
     }
 }
 
